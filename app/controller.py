@@ -56,7 +56,7 @@ def load_user(user_id):
 @login_required
 @required_roles(2)
 def index():
-    return render_template("dashboard.html", result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template("dashboard.html", page_title='Home', result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 
 @app.route("/admin_dashboard", methods=["GET"])
@@ -64,7 +64,7 @@ def index():
 @login_required
 @required_roles(1)
 def index2():
-    return render_template("admin_dashboard.html", result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template("admin_dashboard.html", page_title='Home', result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 
 @app.route("/successadd1", methods=["POST", "GET"])
@@ -185,7 +185,7 @@ def AddTenants():
                     #return render_template("successadd1.html", result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])       
             else:
                 flash("Stall not found")
-    return render_template("addtenant.html", form1=form, availstalls = availstalls, availstalls_y=availstalls_y, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template("addtenant.html", page_title='Add Tenant', form1=form, availstalls = availstalls, availstalls_y=availstalls_y, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 
 @app.route("/AddTenants2", methods=["POST", "GET"])
@@ -299,7 +299,7 @@ def AddTenants2():
                     #return render_template("successadd1.html", result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])       
             else:
                 flash("Stall not found")
-    return render_template("clerk_addtenant.html", form1=form, availstalls = availstalls, availstalls_y=availstalls_y, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template("clerk_addtenant.html", page_title='Add Tenant', form1=form, availstalls = availstalls, availstalls_y=availstalls_y, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 
 @app.route("/AddStalls", methods=["POST", "GET"])
@@ -347,7 +347,7 @@ def AddStalls():
                 flash("Stall Added!!")
                 #return render_template("addstall.html", form=form, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
                 #return render_template("successadd1.html", result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
-    return render_template("addstall.html", form=form, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template("addstall.html", page_title='Add Stall', form=form, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 
 
@@ -383,7 +383,7 @@ def AddClerk():
                 dbase.session.commit()
                 flash('Clerk added!')
                 #return render_template('successadd1.html', result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
-    return render_template("addclerk.html", form=form, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template("addclerk.html", page_title='Add Clerk', form=form, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -477,7 +477,7 @@ def tenantslist():
         stall = Stalls.query.filter_by(stallID=r.stallID).first()
         x1.append(stall.stall_no)
 
-    return render_template('showtenants.html',result_tenants=result_tenants, x1=x1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template('showtenants.html', page_title='Tenants', result_tenants=result_tenants, x1=x1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 @app.route('/showstalls', methods=["GET", "POST"])
 @app.route('/showstalls/', methods=["GET", "POST"])
@@ -497,7 +497,7 @@ def stalllist():
     for r in result_stall:
         tayp = Types.query.filter_by(typeID =r.typeID).first()
         x1.append(tayp.stall_type)
-    return render_template('showstalls.html', result_stall=result_stall, x1=x1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template('showstalls.html', page_title='Stalls', result_stall=result_stall, x1=x1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 @app.route('/logs', methods=["GET", "POST"])
 @app.route('/logs/', methods=["GET", "POST"])
@@ -513,7 +513,7 @@ def logs():
     dbase.session.add(logmessage)
     dbase.session.commit()
     showlogs = Logs.query.all()
-    return render_template('logs.html', showlogs=showlogs, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template('logs.html', page_title='Logs', showlogs=showlogs, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 
 @app.route('/payment_table/<int:id>/<int:s_id>/', methods = ["GET", "POST"])
@@ -527,7 +527,7 @@ def paymenttable(id, s_id):
     form= PaymentForm()
 
     rate_='0'
-    if str(datetime.datetime.now())[8]+str(datetime.datetime.now())[9]=='21':
+    if str(datetime.datetime.now())[8]+str(datetime.datetime.now())[9]>='21':
         rate_= (float(someNum.stall_rate)*0.25)
 
     curr_user = current_user.last_name+', '+current_user.first_name+' '+current_user.mid_name
@@ -543,6 +543,12 @@ def paymenttable(id, s_id):
 
 
     if request.method=='POST' and form.validate_on_submit():
+        tenant_1.balance=0.0    
+        if int(form.amount.data)<int(form.total.data):
+            tenant_1.balance = float(form.total.data)-float(form.amount.data)
+        dbase.session.add(tenant_1)
+        dbase.session.commit()
+
         uForms = Pays(month=form.month.data,
                         amount=form.amount.data,
                         sCharge=form.sCharge.data,
@@ -559,8 +565,8 @@ def paymenttable(id, s_id):
         dbase.session.commit()
         return redirect(url_for("paymenttable", id=id, s_id=s_id))
     if current_user.roleID == 1:
-        return render_template('paymenttable_admin.html', rate_2=someNum.stall_rate+int(rate_), curr_user=curr_user, rate_=rate_, form=form, pays=pays, id=id, s_id=s_id, stall=someNum, typee=typee, tenant=tenant_1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
-    return render_template('paymenttable.html', rate_2=someNum.stall_rate+int(rate_), curr_user=curr_user, rate_=rate_, form =form, pays=pays, id=id, s_id=s_id, stall=someNum, typee=typee, tenant=tenant_1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+        return render_template('paymenttable_admin.html', page_title='Payment Table', rate_2=someNum.stall_rate+int(rate_)+tenant_1.balance, curr_user=curr_user, rate_=rate_, form=form, pays=pays, id=id, s_id=s_id, stall=someNum, typee=typee, tenant=tenant_1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template('paymenttable.html', page_title='Payment Table', rate_2=someNum.stall_rate+int(rate_)+tenant_1.balance, curr_user=curr_user, rate_=rate_, form =form, pays=pays, id=id, s_id=s_id, stall=someNum, typee=typee, tenant=tenant_1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 
 @app.route('/payment')
@@ -571,7 +577,7 @@ def payment():
     form= PaymentForm()
     curr_user = current_user.last_name+', '+current_user.first_name+' '+current_user.mid_name
     tenant = Tenants.query.filter_by(tenant_status='1').all()
-    return render_template('payment.html', curr_user=curr_user, form=form, tenn=tenant, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template('payment.html', page_title='Payment', curr_user=curr_user, form=form, tenn=tenant, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 
 @app.route('/edit_tenant/<int:id>/<int:s_id>', methods=["GET", "POST"])
@@ -605,7 +611,7 @@ def edit_tenant(id, s_id):
         form.address.data = tenant.present_addr
         form.contnum.data = tenant.contact_no
 
-    return render_template('edit_tenant.html', form1=form, tenant=tenant)
+    return render_template('edit_tenant.html', page_title='Edit Tenant', form1=form, tenant=tenant)
 
 @app.route("/alternate/payment")
 def select_tenant():
@@ -616,10 +622,10 @@ def select_tenant():
     name = str(tenant.last_name)+', '+str(tenant.first_name)+' '+str(tenant.mid_name)
     curr_user = current_user.last_name+', '+current_user.first_name+' '+current_user.mid_name
     rate_='0'
-    if str(datetime.datetime.now())[8]+str(datetime.datetime.now())[9]=='21':
-        rate_= (float(someNum.stall_rate)*0.25)
+    if str(datetime.datetime.now())[8]+str(datetime.datetime.now())[9]>='21':
+        rate_= (float(stall.stall_rate)*0.25)
 
-    return jsonify(rate_=rate_, rate_2=stall.stall_rate+int(rate_), curr_user=curr_user, prof= tenant.tenant_photo, name = name, cnum = tenant.contact_no, addr = tenant.present_addr, stallnum = stall.stall_no, stallloc = stall.stall_loc, stalltype = type.stall_type, rate = stall.stall_rate, balance= 0)
+    return jsonify(rate_=rate_, rate_2=stall.stall_rate+int(rate_)+tenant.balance, curr_user=curr_user, prof= tenant.tenant_photo, name = name, cnum = tenant.contact_no, addr = tenant.present_addr, stallnum = stall.stall_no, stallloc = stall.stall_loc, stalltype = type.stall_type, rate = stall.stall_rate, balance=tenant.balance)
 
 @app.route('/alternate/payment/transac')
 def pay_tenant():
@@ -652,6 +658,14 @@ def pay_tenant():
 
 
     if count==0:
+
+        tenant_0 = Tenants.query.filter(and_(Tenants.tenantID==int(request.args.get('tenant_id')), Tenants.stallID==int(request.args.get('stall_id')))).first()
+        tenant_0.balance=0.0    
+        if int(request.args.get('amount'))<int(request.args.get('total')):
+            tenant_0.balance = float(request.args.get('total'))-float(request.args.get('amount'))
+        dbase.session.add(tenant_0)
+        dbase.session.commit()
+
         uForms = Pays(month=request.args.get('month'),
             amount=float(request.args.get('amount')),
             sCharge=float(request.args.get('scharge')),
@@ -689,7 +703,7 @@ def evict_tenant(id,s_id):
     for r in result_tenants:        
         stall = Stalls.query.filter_by(stallID=r.stallID).first()
         x1.append(stall.stall_no)
-    return render_template('showtenants.html', result_tenants=result_tenants, x1=x1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
+    return render_template('showtenants.html', page_title='Tenants', result_tenants=result_tenants, x1=x1, result=search_panel(0)[0], x=search_panel(0)[1], result2=search_panel(1)[0], y=search_panel(1)[1])
 
 @app.route('/notifications')
 def notify():

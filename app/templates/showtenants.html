@@ -97,7 +97,7 @@
 		function evict_(tid, sid){
 		 swal({
 		    title: "Are you sure?",
-		    text: "You will not be able to recover this imaginary file!",
+		    text: "Tenant will be set to inactive will not be able to be reinstated!",
 		    type: "warning",
 		    showCancelButton: true,
 		    confirmButtonColor: '#DD6B55',
@@ -110,11 +110,11 @@
 
 		   if (isConfirm){
 		     //swal("Shortlisted!", "Candidates are successfully shortlisted!", "success");
-		     window.open('/evict_tenant/'+tid+'/'+sid);
+		     window.open('/evict_tenant/'+tid+'/'+sid, '_top');
 		     console.log("earll");
 
 		    } else {
-		      swal("Cancelled", "Your imaginary file is safe :)", "error");
+		      swal("Cancelled", "Tenant status remains active!", "error");
 		    }
 		 });
 		};

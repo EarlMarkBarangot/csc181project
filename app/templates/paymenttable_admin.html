@@ -44,7 +44,7 @@
                         Rate: {{ stall.stall_rate }}
                     </div>
                     <div class="row">
-                        Balance:
+                        Balance: {{ tenant.balance }}
                     </div>
                 </div>
             </div>
@@ -118,13 +118,13 @@
                                 <td style="width:1%;">
                                         {{ p.or_no }}
                                 </td>
-                                <td style="width:1%;">
+                                <td style="width:12%;">
                                         {{ p.date_issued }}
                                 </td>
                                 <td style="width:6%;">
                                         {{ p.issued_by }}
                                 </td>
-                                <td>
+                                <td style="width:6%;">
                                     {{p.remark}}
                                 </td>
 
@@ -241,8 +241,20 @@
     <script>
        $('#myTable_main').DataTable( {
         dom: 'Blfrtip',
-        buttons: [
+        buttons: /*[
             'copy', 'csv', 'excel', 'print'
+        ]*/
+        [
+            {
+                extend: 'excelHtml5',
+                title: '{{ tenant.last_name }}, {{ tenant.first_name }} {{ tenant.mid_name }}'
+            },
+            {
+                extend: 'csvHtml5',
+                title: '{{ tenant.last_name }}, {{ tenant.first_name }} {{ tenant.mid_name }}'
+            },
+            'print',
+            'copy'
         ]
     } );
     </script>

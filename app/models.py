@@ -132,6 +132,7 @@ class Tenants(dbase.Model):
     tenant_photo = dbase.Column(dbase.String(60))
     tenant_status = dbase.Column(dbase.String(2))
     stallID = dbase.Column(dbase.Integer, dbase.ForeignKey("stalls.stallID"), nullable=True)
+    balance = dbase.Column(dbase.Float)
 
     def __init__(self,contact_no, first_name, mid_name, last_name, present_addr, stallID):
         self.first_name = first_name
@@ -141,6 +142,7 @@ class Tenants(dbase.Model):
         self.present_addr = present_addr
         self.stallID = stallID
         self.tenant_status = '1'
+        self.balance = 0.0
 
 
     def __repr__(self):
